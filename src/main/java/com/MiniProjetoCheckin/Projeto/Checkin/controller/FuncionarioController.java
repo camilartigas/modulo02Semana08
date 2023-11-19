@@ -6,12 +6,10 @@ import com.MiniProjetoCheckin.Projeto.Checkin.model.Funcionario;
 import com.MiniProjetoCheckin.Projeto.Checkin.service.FuncionarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -29,6 +27,15 @@ public class FuncionarioController {
     public ResponseEntity<Funcionario> criarFuncionario(@Valid @RequestBody FuncionarioDTO funcionarioDTO) {
         Funcionario novoFuncionario = funcionarioService.criarFuncionario(funcionarioDTO);
         return new ResponseEntity<>(novoFuncionario, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/funcionarios")
+    public ResponseEntity<Page<FuncionarioDTO>> listarFuncionarios(
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "12") int tamanhoPagina) {
+
+        Page<FuncionarioDTO> funcionariosPaginados = funcionarioService.listarFuncionariosPaginados(pagina, tamanhoPagina);
+        return ResponseEntity.ok(funcionariosPaginados);
     }
 
 }
