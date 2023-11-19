@@ -1,7 +1,6 @@
 package com.MiniProjetoCheckin.Projeto.Checkin.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity

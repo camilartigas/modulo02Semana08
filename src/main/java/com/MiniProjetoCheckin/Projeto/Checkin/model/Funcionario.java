@@ -2,8 +2,6 @@ package com.MiniProjetoCheckin.Projeto.Checkin.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.boot.registry.selector.spi.StrategyCreator;
-
 import java.math.BigDecimal;
 import java.util.List;
 
