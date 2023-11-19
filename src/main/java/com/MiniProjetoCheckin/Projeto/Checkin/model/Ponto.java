@@ -12,7 +12,7 @@ public class Ponto {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "funcionario_id", nullable = false)
+    @JoinColumn(name = "funcionario_id", nullable = false, referencedColumnName = "id")
     private Funcionario funcionario;
 
     private LocalDateTime horario;

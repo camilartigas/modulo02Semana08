@@ -1,11 +1,11 @@
 package com.MiniProjetoCheckin.Projeto.Checkin.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.boot.registry.selector.spi.StrategyCreator;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Funcionario {
@@ -17,6 +17,14 @@ public class Funcionario {
     @NotBlank
     private String nome;
 
+    private String cargo;
+    private BigDecimal salario;
+
+    @OneToMany(mappedBy = "funcionario", orphanRemoval = true, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Ponto> registros;
+
+
+    //Getters e setters
     public Long getId() {
         return id;
     }
@@ -31,5 +39,29 @@ public class Funcionario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public void setSalario(BigDecimal salario) {
+        this.salario = salario;
+    }
+
+    public List<Ponto> getRegistros() {
+        return registros;
+    }
+
+    public void setRegistros(List<Ponto> registros) {
+        this.registros = registros;
     }
 }
