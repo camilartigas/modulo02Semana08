@@ -3,6 +3,7 @@ package com.MiniProjetoCheckin.Projeto.Checkin.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class FuncionarioDTO {
     private Long id;
@@ -14,6 +15,7 @@ public class FuncionarioDTO {
 
     @NotNull
     private BigDecimal salario;
+    private List<PontoDTO> registrosPonto;
 
 
     // Getters e Setters
@@ -49,5 +51,13 @@ public class FuncionarioDTO {
 
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
+    }
+
+    public List<PontoDTO> getRegistrosPonto() {
+        return registrosPonto;
+    }
+
+    public void setRegistrosPonto(List<PontoDTO> registrosPonto) {
+        this.registrosPonto = registrosPonto;
     }
 }
