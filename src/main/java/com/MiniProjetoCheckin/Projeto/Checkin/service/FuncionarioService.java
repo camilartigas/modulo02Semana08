@@ -4,6 +4,7 @@ import com.MiniProjetoCheckin.Projeto.Checkin.dto.FuncionarioDTO;
 import com.MiniProjetoCheckin.Projeto.Checkin.dto.PontoDTO;
 import com.MiniProjetoCheckin.Projeto.Checkin.model.Funcionario;
 import com.MiniProjetoCheckin.Projeto.Checkin.model.Ponto;
+import com.MiniProjetoCheckin.Projeto.Checkin.model.TipoRegistro;
 import com.MiniProjetoCheckin.Projeto.Checkin.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,8 +96,28 @@ public class FuncionarioService {
 
             Ponto ponto = new Ponto();
             ponto.setFuncionario(funcionario);
-            ponto.setHorario(pontoDTO.getHorario());
+            ponto.setHorario(LocalDateTime.now());
             ponto.setTipo(pontoDTO.getTipo());
+
+            funcionario.getRegistros().add(ponto);
+
+            funcionarioRepository.save(funcionario);
+
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<?> registrarPonto(Long idFuncionario, TipoRegistro tipoRegistro) {
+        Optional<Funcionario> funcionarioOptional = funcionarioRepository.findById(idFuncionario);
+        if (funcionarioOptional.isPresent()) {
+            Funcionario funcionario = funcionarioOptional.get();
+
+            Ponto ponto = new Ponto();
+            ponto.setFuncionario(funcionario);
+            ponto.setHorario(LocalDateTime.now()); // Define o horário atual
+            ponto.setTipo(tipoRegistro);
 
             funcionario.getRegistros().add(ponto);
 
